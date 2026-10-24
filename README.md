@@ -39,6 +39,10 @@ Results will appear here after the first evaluation run.
 - [ ] Observability and cost tracking
 - [ ] Cloud deployment
 
+## Design decisions
+
+- [ADR-001: Stack decisions](docs/adr/001-stack.md)
+
 ## License
 
 MIT
