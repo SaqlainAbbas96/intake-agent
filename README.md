@@ -22,7 +22,8 @@ A multi-tenant AI agent built in .NET that turns messy inbound requests (emails,
 git clone https://github.com/SaqlainAbbas96/intake-agent.git
 cd intake-agent
 cp .env.example .env
-docker compose up -d
+docker compose up -d --build
+curl http://localhost:8080/health
 ```
 
 Run without an LLM key using mock mode: `LLM_PROVIDER=mock`
