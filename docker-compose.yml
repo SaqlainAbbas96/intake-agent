@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-intake}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-intake_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-intake}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: src/Api/Dockerfile
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-mock}
+      ConnectionStrings__Default: Host=postgres;Port=5432;Database=${POSTGRES_DB:-intake};Username=${POSTGRES_USER:-intake};Password=${POSTGRES_PASSWORD:-intake_dev_password}
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  postgres_data:
