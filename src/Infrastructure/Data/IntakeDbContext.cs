@@ -1,5 +1,7 @@
 using System.Text.RegularExpressions;
+
 using Core.Entities;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Data;
