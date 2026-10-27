@@ -1,4 +1,5 @@
 using Infrastructure.Data;
+using Infrastructure.Llm;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,8 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
     ?? throw new InvalidOperationException("ConnectionStrings:Default is not configured.");
 
 builder.Services.AddDbContext<IntakeDbContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddLlmProvider(builder.Configuration);
 
 var app = builder.Build();
 
