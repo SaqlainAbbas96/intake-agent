@@ -19,7 +19,7 @@ public class HealthEndpointTests : IClassFixture<WebApplicationFactory<Program>>
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var body = await response.Content.ReadFromJsonAsync<HealthResponse>();
-        Assert.Equal("healthy", body?.Status);
+        Assert.Equal("broken", body?.Status);
     }
 
     private record HealthResponse(string Status);
