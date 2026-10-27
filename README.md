@@ -45,6 +45,7 @@ Results will appear here after the first evaluation run.
 ## Design decisions
 
 - [ADR-001: Stack decisions](docs/adr/001-stack.md)
+- [ADR-002: LLM abstraction](docs/adr/002-llm-abstraction.md)
 
 ## License
 
