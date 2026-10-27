@@ -1,5 +1,7 @@
 # intake-agent
 
+![CI](https://github.com/SaqlainAbbas96/intake-agent/actions/workflows/ci.yml/badge.svg)
+
 A multi-tenant AI agent built in .NET that turns messy inbound requests (emails, call transcripts) into validated structured records, and measures its own quality with evaluations.
 
 **Status:** early development.
