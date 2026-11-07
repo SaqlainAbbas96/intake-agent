@@ -1,26 +1,24 @@
 using System.Text.Json;
-
 using Core.Llm;
-
 using Infrastructure.Llm;
-
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Api.Tests.Llm;
 
-public class LlmProviderRegistrationTests : IClassFixture<WebApplicationFactory<Program>>
+public class LlmProviderRegistrationTests
 {
-    private readonly WebApplicationFactory<Program> _factory;
-
-    public LlmProviderRegistrationTests(WebApplicationFactory<Program> factory) => _factory = factory;
-
     [Fact]
     public async Task Mock_provider_is_the_default_and_needs_no_api_key()
     {
-        var provider = _factory.Services.GetRequiredService<ILlmProvider>();
+        var configuration = new ConfigurationBuilder().Build(); // no settings at all
 
+        using var services = new ServiceCollection()
+            .AddLogging()
+            .AddLlmProvider(configuration)
+            .BuildServiceProvider();
+
+        var provider = services.GetRequiredService<ILlmProvider>();
         var response = await provider.CompleteAsync(new LlmRequest("Extract the order.", "{}"));
 
         Assert.Equal("mock", provider.Name);
