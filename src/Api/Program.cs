@@ -1,4 +1,7 @@
+using Api.Endpoints;
+
 using Infrastructure.Data;
+using Infrastructure.Extraction;
 using Infrastructure.Llm;
 
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +17,7 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
 builder.Services.AddDbContext<IntakeDbContext>(options => options.UseNpgsql(connectionString));
 
 builder.Services.AddLlmProvider(builder.Configuration);
+builder.Services.AddExtraction();
 
 var app = builder.Build();
 
@@ -24,6 +28,7 @@ if (builder.Configuration.GetValue<bool>("RUN_MIGRATIONS"))
 }
 
 app.MapGet("/health", () => Results.Ok(new { status = "healthy" }));
+app.MapExtractEndpoints();
 
 app.Run();
 
