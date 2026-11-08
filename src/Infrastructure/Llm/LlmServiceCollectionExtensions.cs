@@ -17,6 +17,8 @@ public static class LlmServiceCollectionExtensions
             ReadDecimal(configuration, "LLM_INPUT_USD_PER_MILLION"),
             ReadDecimal(configuration, "LLM_OUTPUT_USD_PER_MILLION"));
 
+        services.AddSingleton(pricing);
+
         switch (provider)
         {
             case "mock":

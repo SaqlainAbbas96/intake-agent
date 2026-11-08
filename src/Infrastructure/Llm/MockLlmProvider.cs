@@ -4,7 +4,8 @@ namespace Infrastructure.Llm;
 
 public sealed class MockLlmProvider : ILlmProvider
 {
-    public const string DefaultContent = """{"summary":"mock extraction"}""";
+    //public const string DefaultContent = """{"summary":"mock extraction"}""";
+    public const string DefaultContent = """{"customer_name":"Mock Customer","quantity":1}""";
 
     private readonly IReadOnlyDictionary<string, string> _fixtures;
     private readonly string _defaultContent;
